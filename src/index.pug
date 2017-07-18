@@ -17,8 +17,17 @@ body
       li
         a(data-toggle='tab', href='#/done')
          i.fa.fa-check(aria-hidden='true')
-    .tab-content#view
+    .row
+      .input-group
+        input.form-control#new-note(type='text', placeholder='Type your new task')
+        span.input-group-btn
+          input.btn.btn-primary#add(type='submit', value='Add')
+    .row
+      .tab-content#view
   script(src='/js/jquery.min.js')
   script(src='/js/router.js')
+  script(src='/js/add.js')
+  script(src='/js/get.js')
+  script(src='/js/delete.js')
   //script(src='/js/bootstrap.min.js')
   //script(src='/js/handlebars.min.js')
