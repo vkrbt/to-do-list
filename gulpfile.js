@@ -6,6 +6,7 @@ var webserver = require('gulp-webserver');
 var cleanCSS = require('gulp-clean-css');
 var sourcemaps = require('gulp-sourcemaps');
 var pug = require('gulp-pug');
+var babel = require('gulp-babel');
 
 var src = {
   pug: './src/*.pug',
@@ -15,12 +16,19 @@ var src = {
   },
   fonts: './src/fonts/**/*.*',
   js: './src/js/**/*.*',
+  lib: [
+    'node_modules/jquery/dist/jquery.min.js',
+    'node_modules/handlebars/dist/handlebars.min.js',
+    'node_modules/bootstrap/dist/js/bootstrap.min.js',
+  ],
+  fonts: './src/fonts/**/*.*',
 }
 
 var dist = {
   html: './dist/',
   css: './dist/css/',
   js: './dist/js',
+  fonts: './dist/fonts',
 }
 
 gulp.task('pug', function() {
@@ -33,23 +41,32 @@ gulp.task('scss', function() {
   return gulp.src(src.scss.styles)
     .pipe(sourcemaps.init())
     .pipe(sass().on('error', sass.logError))
-    .pipe(cleanCSS({compatibility: 'ie8'}))    
+    .pipe(cleanCSS({ compatibility: 'ie8' }))
     .pipe(sourcemaps.write())
     .pipe(gulp.dest(dist.css));
 });
 
 gulp.task('js', function() {
-  gulp.src(src.js)
-    .pipe(gulp.dest(dist.js))
+  gulp.src(src.js).
+    pipe(gulp.dest(dist.js));
+  src.lib.forEach(function(item) {
+    gulp.src(item)
+      .pipe(gulp.dest(dist.js))
+  })
 });
 
+gulp.task('fonts', function() {
+  gulp.src(src.fonts)
+    .pipe(gulp.dest(dist.fonts))
+});
 
-gulp.task('build', ['pug', 'scss', 'js']);
+gulp.task('build', ['pug', 'scss', 'js', 'fonts']);
 
 gulp.task('watch', function() {
   gulp.watch(src.pug, ['pug']);
   gulp.watch(src.scss.all, ['scss']);
   gulp.watch(src.js, ['js']);
+  gulp.watch(src.fonts, ['fonts']);
 });
 
 gulp.task('webserver', function() {

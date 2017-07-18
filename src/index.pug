@@ -4,6 +4,21 @@ head
   meta(charset="UTF-8")
   meta(name='viewport', content='width=device-width, initial-scale=1')
   title TODO list
-  link(rel="stylesheet", href="styles.css")
+  link(rel="stylesheet", href="css/styles.css")
 body
-  
+  .container
+    ul.nav.nav-pills.nav-justified
+      li
+        a(data-toggle='tab', href='#/active')
+          i.fa.fa-clock-o(aria-hidden='true')
+      li
+        a(data-toggle='tab', href='#/all')
+          i.fa.fa-list(aria-hidden='true')
+      li
+        a(data-toggle='tab', href='#/done')
+         i.fa.fa-check(aria-hidden='true')
+    .tab-content#view
+  script(src='/js/jquery.min.js')
+  script(src='/js/router.js')
+  //script(src='/js/bootstrap.min.js')
+  //script(src='/js/handlebars.min.js')
