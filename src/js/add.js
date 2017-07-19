@@ -24,11 +24,21 @@ function addNote(note) {
     text: note,
     active: true
   };
-  $.post('http://localhost:3000/', data, function(data) {
+  return $.post(config.getLink(), data, function(data) {
     $('#new-note')[0].value = '';
-    alert('Note was added');
-    getNotes();
+    //alert('Note was added');
+    getNotes(Router.getCurrentPath().slice(2));
   })
+}
+
+function restoreNote(note){
+  let data = {
+    text: note.text,
+    active: note.active
+  };
+  return $.post(config.getLink(), data, function(){
+    getNotes(Router.getCurrentPath().slice(2));
+  });
 }
 
 class AddNote extends Command{
@@ -37,9 +47,11 @@ class AddNote extends Command{
     this.note = note;
   }
   do(){
-    
+    this.fullNotePromise = addNote(this.note);
   }
   undo(){
-
+    this.fullNotePromise.then(function(data){
+      deleteNote(data[0]._id);
+    })
   }
 }

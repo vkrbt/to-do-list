@@ -6,11 +6,27 @@ function bindStatusChangeEvent() {
 
 function statusChange(id, status) {
   $.ajax({
-    url: 'http://localhost:3000/' + id,
+    url: config.getLink() + id,
     data: { active: status },
     type: 'PUT',
     success: function(data) {
       console.log(data);
     }
   });
+}
+
+class ChangeStatusNote extends Command {
+  constructor(id, status) {
+    super();
+    this.id = id;
+    this.status = status;
+  }
+  do() {
+    statusChange(this.id, this.status);
+    getNotes(Router.getCurrentPath().slice(2));
+  }
+  undo() {
+    statusChange(this.id, !this.status);
+    getNotes(Router.getCurrentPath().slice(2));
+  }
 }

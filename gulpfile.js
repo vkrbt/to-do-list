@@ -72,6 +72,8 @@ gulp.task('watch', function() {
 gulp.task('webserver', function() {
   gulp.src(dist.html)
     .pipe(webserver({
+      host:'192.168.14.144',
+      port: 8000,
       livereload: true,
       directoryListing: false,
       open: true

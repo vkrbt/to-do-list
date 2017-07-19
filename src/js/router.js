@@ -37,6 +37,10 @@ function changePath() {
   }
 }
 
+function getCurrentPath(){
+  return window.location.hash;
+}
+
 let Router = {
   routes: {
     '#/all': {
@@ -57,6 +61,7 @@ let Router = {
   },
   init: init,
   preInit: preInit,
+  getCurrentPath: getCurrentPath,
 }
 
 Router.init();

@@ -14,7 +14,7 @@ function getNotes(status) {
 }
 
 function loadAllNotes() {
-  $.get('http://localhost:3000/').then(function(data) {
+  $.get(config.getLink()).then(function(data) {
     insertNotes('#all', data);
     bindDeleteEvent();
     bindStatusChangeEvent();
@@ -22,7 +22,7 @@ function loadAllNotes() {
 }
 
 function loadActiveNotes() {
-  $.get('http://localhost:3000/get-active').then(function(data) {
+  $.get(config.getLink()+'get-active').then(function(data) {
     insertNotes('#active', data);
     bindDeleteEvent();
     bindStatusChangeEvent();
@@ -30,7 +30,7 @@ function loadActiveNotes() {
 }
 
 function loadDoneNotes() {
-  $.get('http://localhost:3000/get-done').then(function(data) {
+  $.get(config.getLink()+'get-done').then(function(data) {
     insertNotes('#done', data);
     bindDeleteEvent();
     bindStatusChangeEvent();
@@ -49,4 +49,8 @@ function insertNotes(container, data) {
           <div>
         </div>`);
   });
+}
+
+function getOne(id){
+  return $.get(config.getLink()+'get/'+id);
 }
