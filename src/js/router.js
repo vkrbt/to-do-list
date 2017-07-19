@@ -1,3 +1,5 @@
+'use strict';
+
 function preInit() {
   $(window).ready(function() {
     if (!window.location.hash) {
@@ -11,13 +13,16 @@ function preInit() {
 function init() {
   Router.preInit();
   $(window).on('hashchange', function() {
-    changePath()
+    changePath();
   });
 }
 
 function loadTemplate(path) {
   $.get(Router.routes[path].template).done(function(res) {
     $('#view').html(res);
+    if (path != '#/404'){
+      Router.routes[path].init(path.slice(2));
+    }
   }).fail(function(err) {
     $('#view').html('<h1>404</h1>')
   });
@@ -36,15 +41,18 @@ let Router = {
   routes: {
     '#/all': {
       template: '/all.html',
+      init: getNotes,
     },
     '#/active': {
       template: '/active.html',
+      init: getNotes,
     },
     '#/done': {
       template: '/done.html',
+      init: getNotes,
     },
     '#/404': {
-      template: '/404.html',
+      template: '/404.html'
     }
   },
   init: init,

@@ -1,2 +1,14 @@
 @import 'bootstrap';
 @import './node_modules/font-awesome/scss/font-awesome';
+
+.delete {
+  opacity: 0;
+}
+
+.item:hover .delete {
+  opacity: 1;
+}
+.row{
+  margin: 25px 0 ;
+}
+

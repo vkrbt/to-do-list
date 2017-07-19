@@ -1,0 +1,7 @@
+function bindStatusChangeEvent(){
+
+}
+
+function statusChange(){
+  
+}
