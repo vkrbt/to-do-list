@@ -32,6 +32,7 @@ function addNote(note) {
 }
 
 function restoreNote(note){
+  console.log(note)
   let data = {
     text: note.text,
     active: note.active
@@ -47,11 +48,12 @@ class AddNote extends Command{
     this.note = note;
   }
   do(){
-    this.fullNotePromise = addNote(this.note);
+    let self = this;
+    addNote(this.note).then(function(data){
+      self.fullNote = data[0];
+    });
   }
   undo(){
-    this.fullNotePromise.then(function(data){
-      deleteNote(data[0]._id);
-    })
+    deleteNote(this.fullNote._id);
   }
 }

@@ -25,16 +25,17 @@ class DeleteNote extends Command {
     this.id = id;
   }
   do() {
-    this.fullNotePromise = getOne(this.id);
+    let self = this;
+    getOne(this.id).then(function(data) {
+      this.fullNote = data[0];
+    });
     console.log(this);
     deleteNote(this.id);
   }
   undo() {
-    console.log(this);
-    this.fullNotePromise.then(function(data) {
-      restoreNote(data[0]).then(function(res) {
-        this.id = res[0]._id;
-      });
-    })
+    let self = this;
+    restoreNote(this.fullNote).then(function(res) {
+      self.id = res[0]._id;
+    });
   }
 }
