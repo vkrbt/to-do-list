@@ -1,29 +1,5 @@
 'use strict';
 
-class Command {
-  do() {
-    throw new Error('this action not implemented');
-  }
-
-  undo() {
-    throw new Error('this action not implemented');
-  }
-}
-
-class LocalStorageCommand extends Command {
-  constructor(item) {
-    super();
-    this.item = item;
-  }
-  do() {
-    this.prevItem = localStorage.getItem('text');
-    localStorage.setItem('text', this.item);
-  }
-  undo() {
-    this.prevItem = localStorage.setItem('text', this.prevItem);
-  }
-}
-
 let prevActions = [];
 let nextActions = [];
 

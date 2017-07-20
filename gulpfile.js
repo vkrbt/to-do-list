@@ -7,6 +7,8 @@ var cleanCSS = require('gulp-clean-css');
 var sourcemaps = require('gulp-sourcemaps');
 var pug = require('gulp-pug');
 var babel = require('gulp-babel');
+var concat = require('gulp-concat');
+var minify = require('gulp-minify');
 
 var src = {
   pug: './src/*.pug',
@@ -18,8 +20,6 @@ var src = {
   js: './src/js/**/*.*',
   lib: [
     'node_modules/jquery/dist/jquery.min.js',
-    'node_modules/handlebars/dist/handlebars.min.js',
-    'node_modules/bootstrap/dist/js/bootstrap.min.js',
   ],
   fonts: './src/fonts/**/*.*',
 }
@@ -47,8 +47,15 @@ gulp.task('scss', function() {
 });
 
 gulp.task('js', function() {
-  gulp.src(src.js).
-    pipe(gulp.dest(dist.js));
+  gulp.src(src.js)
+    .pipe(concat('index.js'))
+    .pipe(minify({
+      ext: {
+        src: '-debug.js',
+        min: '.js'
+      }
+    }))
+    .pipe(gulp.dest(dist.js));
   src.lib.forEach(function(item) {
     gulp.src(item)
       .pipe(gulp.dest(dist.js))
@@ -72,7 +79,7 @@ gulp.task('watch', function() {
 gulp.task('webserver', function() {
   gulp.src(dist.html)
     .pipe(webserver({
-      host:'192.168.14.144',
+      host: '192.168.14.144',
       port: 8000,
       livereload: true,
       directoryListing: false,

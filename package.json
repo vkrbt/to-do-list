@@ -10,11 +10,12 @@
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
     "gulp-clean-css": "^3.6.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-minify": "^1.0.0",
     "gulp-pug": "^3.3.0",
     "gulp-sass": "^3.1.0",
     "gulp-sourcemaps": "^2.6.0",
     "gulp-webserver": "^0.9.1",
-    "handlebars": "^4.0.10",
     "jquery": "^3.2.1"
   },
   "devDependencies": {},

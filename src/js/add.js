@@ -1,4 +1,13 @@
 'use strict';
+class Command {
+  do() {
+    throw new Error('this action not implemented');
+  }
+
+  undo() {
+    throw new Error('this action not implemented');
+  }
+}
 
 $('#add').click(function(e) {
   addNoteEvent();
@@ -36,7 +45,8 @@ function restoreNote(note){
   console.log(note)
   let data = {
     text: note.text,
-    active: note.active
+    active: note.active,
+    _id: note._id, 
   };
   return $.post(config.getLink(), data, function(){
     getNotes(Router.getCurrentPath().slice(2));

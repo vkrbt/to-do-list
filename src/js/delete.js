@@ -34,9 +34,6 @@ class DeleteCommand extends Command {
     deleteNote(this.id);
   }
   undo() {
-    let self = this;
-    restoreNote(this.fullNote).then(function(res) {
-      self.id = res[0]._id;
-    });
+    restoreNote(this.fullNote)
   }
 }
