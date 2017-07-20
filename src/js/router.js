@@ -32,6 +32,8 @@ function changePath() {
   let path = window.location.hash;
   if (Router.routes[path]) {
     loadTemplate(path);
+    $('.menu-button').removeClass('active');
+    $('.menu-button.'+path.slice(2)+'-tasks').addClass('active');
   } else {
     loadTemplate('#/404');
   }

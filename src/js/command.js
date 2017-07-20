@@ -31,7 +31,6 @@ function go(obj) {
   nextActions = [];
   prevActions.push(obj);
   obj.do();
-  return currentAction;
 }
 
 function goBack() {

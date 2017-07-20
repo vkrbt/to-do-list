@@ -16,6 +16,10 @@ function statusChange(id, status) {
   });
 }
 
+function changeCheckbox(id, status){
+  $('#'+id).find('.check')[0].checked = !status;
+}
+
 class StatusChangeCommand extends Command {
   constructor(id, status) {
     super();
@@ -24,10 +28,10 @@ class StatusChangeCommand extends Command {
   }
   do() {
     statusChange(this.id, this.status);
-    //getNotes(Router.getCurrentPath().slice(2));
+    changeCheckbox(this.id, this.status);
   }
   undo() {
     statusChange(this.id, !this.status);
-    getNotes(Router.getCurrentPath().slice(2));
+    changeCheckbox(this.id, !this.status);
   }
 }
