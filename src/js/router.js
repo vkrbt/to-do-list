@@ -35,6 +35,7 @@ function changePath() {
     $('.menu-button').removeClass('active');
     $('.menu-button.'+path.slice(2)+'-tasks').addClass('active');
   } else {
+    $('.menu-button').removeClass('active');
     loadTemplate('#/404');
   }
 }
