@@ -26,30 +26,28 @@ class LocalStorageCommand extends Command {
 
 let prevActions = [];
 let nextActions = [];
-let currentAction;
 
 function go(obj) {
   nextActions = [];
-  currentAction = obj;
-  prevActions.push(currentAction);
-  currentAction.do();
+  prevActions.push(obj);
+  obj.do();
   return currentAction;
 }
 
 function goBack() {
   if (prevActions.length) {
+    let currentAction = prevActions.pop();
     currentAction.undo();
     nextActions.push(currentAction);
-    currentAction = prevActions.pop();
     return currentAction;
   }
 }
 
 function goForward() {
   if (nextActions.length) {
+    let currentAction = nextActions.pop();
     currentAction.do();
     prevActions.push(currentAction);
-    currentAction = nextActions.pop();
     return currentAction;
   }
 }
@@ -64,8 +62,8 @@ $("body").keydown(function(e){
 });
 
 $("body").keydown(function(e){
-  var zKey = 89;
-  if ((e.ctrlKey || e.metaKey) && e.keyCode == zKey) {
+  var yKey = 89;
+  if ((e.ctrlKey || e.metaKey) && e.keyCode == yKey) {
     goForward();
     return false;
   }
