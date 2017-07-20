@@ -3,7 +3,8 @@
 
 function bindDeleteEvent() {
   $('.delete').bind('click', function(e) {
-    deleteNote(e.target.closest('.item').id);
+    var deleteCommand = new DeleteCommand(e.target.closest('.item').id);
+    go(deleteCommand);
   });
 }
 
@@ -19,7 +20,7 @@ function deleteNote(id) {
   });
 }
 
-class DeleteNote extends Command {
+class DeleteCommand extends Command {
   constructor(id) {
     super();
     this.id = id;
@@ -27,7 +28,7 @@ class DeleteNote extends Command {
   do() {
     let self = this;
     getOne(this.id).then(function(data) {
-      this.fullNote = data[0];
+      self.fullNote = data[0];
     });
     console.log(this);
     deleteNote(this.id);

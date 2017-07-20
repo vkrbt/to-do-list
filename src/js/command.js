@@ -28,13 +28,10 @@ let prevActions = [];
 let nextActions = [];
 let currentAction;
 
-function go() {
-  if (currentAction) {
-    prevActions.push(currentAction);
-  }
-  var item = new LocalStorageCommand((Math.random() * 10) ^ 0);
+function go(obj) {
   nextActions = [];
-  currentAction = item;
+  currentAction = obj;
+  prevActions.push(currentAction);
   currentAction.do();
   return currentAction;
 }
@@ -56,3 +53,20 @@ function goForward() {
     return currentAction;
   }
 }
+
+
+$("body").keydown(function(e){
+  var zKey = 90;
+  if ((e.ctrlKey || e.metaKey) && e.keyCode == zKey) {
+    goBack();
+    return false;
+  }
+});
+
+$("body").keydown(function(e){
+  var zKey = 89;
+  if ((e.ctrlKey || e.metaKey) && e.keyCode == zKey) {
+    goForward();
+    return false;
+  }
+});

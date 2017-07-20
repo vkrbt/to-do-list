@@ -13,7 +13,8 @@ $('#new-note').keydown(function(event) {
 function addNoteEvent() {
   let note = $('#new-note')[0].value;
   if (note) {
-    addNote(note);
+    var addCommand = new AddCommand(note);
+    go(addCommand);
   } else {
     alert('Your input is empty');
   }
@@ -42,7 +43,7 @@ function restoreNote(note){
   });
 }
 
-class AddNote extends Command{
+class AddCommand extends Command{
   constructor(note){
     super();
     this.note = note;

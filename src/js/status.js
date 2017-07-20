@@ -1,6 +1,7 @@
 function bindStatusChangeEvent() {
   $('.check').bind('click', function(e) {
-    statusChange(e.target.closest('.item').id, !e.target.checked);
+    let statusCommand = new StatusChangeCommand(e.target.closest('.item').id, !e.target.checked);
+    go(statusCommand);
   })
 }
 
@@ -15,7 +16,7 @@ function statusChange(id, status) {
   });
 }
 
-class ChangeStatusNote extends Command {
+class StatusChangeCommand extends Command {
   constructor(id, status) {
     super();
     this.id = id;
@@ -23,7 +24,7 @@ class ChangeStatusNote extends Command {
   }
   do() {
     statusChange(this.id, this.status);
-    getNotes(Router.getCurrentPath().slice(2));
+    //getNotes(Router.getCurrentPath().slice(2));
   }
   undo() {
     statusChange(this.id, !this.status);
