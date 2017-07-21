@@ -16,8 +16,8 @@ function statusChange(id, status) {
   });
 }
 
-function changeCheckbox(id, status){
-  $('#'+id).find('.check')[0].checked = !status;
+function changeCheckbox(id, status) {
+  $('#' + id).find('.check')[0].checked = !status;
 }
 
 class StatusChangeCommand extends Command {
@@ -29,9 +29,22 @@ class StatusChangeCommand extends Command {
   do() {
     statusChange(this.id, this.status);
     changeCheckbox(this.id, this.status);
+    clearTimeout(super.timeoutId);
+    if (Router.getCurrentPath().slice(2) != 'all') {
+      super.timeoutId = setTimeout(function() {
+        getNotes(Router.getCurrentPath().slice(2));
+      }, 1000);
+    }
   }
   undo() {
     statusChange(this.id, !this.status);
-    changeCheckbox(this.id, !this.status);
+    clearTimeout(super.timeoutId);
+    if (Router.getCurrentPath().slice(2) == 'all') {
+      changeCheckbox(this.id, !this.status);
+    } else {
+      setTimeout(function() {
+        getNotes(Router.getCurrentPath().slice(2));
+      }, 100)
+    }
   }
 }

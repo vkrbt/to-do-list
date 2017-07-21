@@ -21,7 +21,8 @@ body
       .input-group
         input.form-control#new-note(type='text', placeholder='Type your new task')
         span.input-group-btn
-          input.btn.btn-primary#add(type='submit', value='Add')
+          button.btn.btn-primary#add(type='submit')
+            i.fa.fa-plus(aria-hidden='true')
     .row
       .tab-content#view
   script(src='/js/jquery.min.js')

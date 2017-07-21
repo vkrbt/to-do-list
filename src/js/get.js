@@ -22,7 +22,7 @@ function loadAllNotes() {
 }
 
 function loadActiveNotes() {
-  $.get(config.getLink()+'get-active').then(function(data) {
+  $.get(config.getLink() + 'get-active').then(function(data) {
     insertNotes('#active', data);
     bindDeleteEvent();
     bindStatusChangeEvent();
@@ -30,7 +30,7 @@ function loadActiveNotes() {
 }
 
 function loadDoneNotes() {
-  $.get(config.getLink()+'get-done').then(function(data) {
+  $.get(config.getLink() + 'get-done').then(function(data) {
     insertNotes('#done', data);
     bindDeleteEvent();
     bindStatusChangeEvent();
@@ -38,19 +38,27 @@ function loadDoneNotes() {
 }
 
 function insertNotes(container, data) {
-  data.reverse();
-  data.forEach(function(item) {
-    $(container).append(`<div id=` + item._id + ` class="col-xs-12 item">
+  if (data.length) {
+    data.reverse();
+    data.forEach(function(item) {
+      $(container).append(`<div id=` + item._id + ` class="col-xs-12 item">
         <p class='pull-left'><input class='check' type='checkbox'` +
-      (!toBoolean(item.active) ? 'checked' : '') + `>` + item.text +
-      `</p>
+        (!toBoolean(item.active) ? 'checked' : '') + `>` + item.text +
+        `</p>
           <div class='pull-right'>
             <button class="btn btn-danger delete"><i class="fa fa-trash" aria-hidden="true"></i></button>
           <div>
         </div>`);
-  });
+    });
+  } else {
+    $(container).append(
+      `<div class="alert alert-info">
+        List is empty
+      </div>`
+    )
+  }
 }
 
-function getOne(id){
-  return $.get(config.getLink()+'get/'+id);
+function getOne(id) {
+  return $.get(config.getLink() + 'get/' + id);
 }
