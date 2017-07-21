@@ -1,13 +1,5 @@
 'use strict';
-class Command {
-  do() {
-    throw new Error('this action not implemented');
-  }
-
-  undo() {
-    throw new Error('this action not implemented');
-  }
-}
+import Command from './command.js';
 
 $('#add').click(function(e) {
   addNoteEvent();
@@ -36,7 +28,6 @@ function addNote(note) {
   };
   return $.post(config.getLink(), data, function(data) {
     $('#new-note')[0].value = '';
-    //alert('Note was added');
     getNotes(Router.getCurrentPath().slice(2));
   })
 }

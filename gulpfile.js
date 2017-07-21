@@ -48,6 +48,9 @@ gulp.task('scss', function() {
 
 gulp.task('js', function() {
   gulp.src(src.js)
+    .pipe(babel({
+      presets: ['es2015']
+    }))
     .pipe(concat('index.js'))
     .pipe(minify({
       ext: {

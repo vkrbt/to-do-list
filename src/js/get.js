@@ -48,6 +48,7 @@ function insertNotes(container, data) {
           <div class='pull-right'>
             <button class="btn btn-danger delete"><i class="fa fa-trash" aria-hidden="true"></i></button>
           <div>
+
         </div>`);
     });
   } else {
