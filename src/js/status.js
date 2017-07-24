@@ -1,23 +1,15 @@
-function bindStatusChangeEvent() {
-  $('.check').bind('click', function(e) {
-    let statusCommand = new StatusChangeCommand(e.target.closest('.item').id, !e.target.checked);
-    go(statusCommand);
-  })
-}
+'use strict';
 
 function statusChange(id, status) {
-  $.ajax({
+  return $.ajax({
     url: config.getLink() + id,
     data: { active: status },
-    type: 'PUT',
-    success: function(data) {
-      console.log(data);
-    }
+    type: 'PUT'
   });
 }
 
-function changeCheckbox(id, status){
-  $('#'+id).find('.check')[0].checked = !status;
+function changeCheckbox(id, status) {
+  $('#' + id).find('.check')[0].checked = !status;
 }
 
 class StatusChangeCommand extends Command {
@@ -29,9 +21,19 @@ class StatusChangeCommand extends Command {
   do() {
     statusChange(this.id, this.status);
     changeCheckbox(this.id, this.status);
+    if (Router.getPathParam() != 'all') {
+      this.timeoutId = setTimeout(() => {
+        console.log(this);
+        this.node = deleteNoteNode(this.id);
+      }, 700);
+    }
   }
   undo() {
     statusChange(this.id, !this.status);
-    changeCheckbox(this.id, !this.status);
+    if (Router.getPathParam() != 'all') {
+      clearTimeout(this.timeoutId);
+      restoreNoteNode(this.node);
+      changeCheckbox(this.id, !this.status);
+    }
   }
 }

@@ -1,6 +1,6 @@
 'use strict';
 
-function toBoolean(string){
+function stringToBoolean(string){
   if(string == 'true'){
     return true;
   }

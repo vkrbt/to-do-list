@@ -20,7 +20,7 @@ function init() {
 function loadTemplate(path) {
   $.get(Router.routes[path].template).done(function(res) {
     $('#view').html(res);
-    if (path != '#/404'){
+    if (path != '#/404') {
       Router.routes[path].init(path.slice(2));
     }
   }).fail(function(err) {
@@ -33,14 +33,18 @@ function changePath() {
   if (Router.routes[path]) {
     loadTemplate(path);
     $('.menu-button').removeClass('active');
-    $('.menu-button.'+path.slice(2)+'-tasks').addClass('active');
+    $('.menu-button.' + path.slice(2) + '-tasks').addClass('active');
   } else {
     loadTemplate('#/404');
   }
 }
 
-function getCurrentPath(){
+function getPath() {
   return window.location.hash;
+}
+
+function getPathParam() {
+  return window.location.hash.slice(2);
 }
 
 let Router = {
@@ -63,7 +67,8 @@ let Router = {
   },
   init: init,
   preInit: preInit,
-  getCurrentPath: getCurrentPath,
+  getPath: getPath,
+  getPathParam: getPathParam,
 }
 
 Router.init();

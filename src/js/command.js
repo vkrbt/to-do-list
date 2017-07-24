@@ -51,8 +51,7 @@ function goForward() {
   }
 }
 
-
-$("body").keydown(function(e){
+$("body").keydown(function(e) {
   var zKey = 90;
   if ((e.ctrlKey || e.metaKey) && e.keyCode == zKey) {
     goBack();
@@ -60,7 +59,7 @@ $("body").keydown(function(e){
   }
 });
 
-$("body").keydown(function(e){
+$("body").keydown(function(e) {
   var yKey = 89;
   if ((e.ctrlKey || e.metaKey) && e.keyCode == yKey) {
     goForward();
