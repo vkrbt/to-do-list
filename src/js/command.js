@@ -1,5 +1,15 @@
 'use strict';
 
+class Command {
+  do() {
+    throw new Error('this action not implemented');
+  }
+
+  undo() {
+    throw new Error('this action not implemented');
+  }
+}
+
 let prevActions = [];
 let nextActions = [];
 
@@ -27,8 +37,7 @@ function goForward() {
   }
 }
 
-
-$("body").keydown(function(e){
+$("body").keydown(function(e) {
   var zKey = 90;
   if ((e.ctrlKey || e.metaKey) && e.keyCode == zKey) {
     goBack();
@@ -36,7 +45,7 @@ $("body").keydown(function(e){
   }
 });
 
-$("body").keydown(function(e){
+$("body").keydown(function(e) {
   var yKey = 89;
   if ((e.ctrlKey || e.metaKey) && e.keyCode == yKey) {
     goForward();

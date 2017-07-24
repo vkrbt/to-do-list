@@ -1,18 +1,10 @@
-function bindStatusChangeEvent() {
-  $('.check').bind('click', function(e) {
-    let statusCommand = new StatusChangeCommand(e.target.closest('.item').id, !e.target.checked);
-    go(statusCommand);
-  })
-}
+'use strict';
 
 function statusChange(id, status) {
-  $.ajax({
+  return $.ajax({
     url: config.getLink() + id,
     data: { active: status },
-    type: 'PUT',
-    success: function(data) {
-      console.log(data);
-    }
+    type: 'PUT'
   });
 }
 
@@ -29,22 +21,19 @@ class StatusChangeCommand extends Command {
   do() {
     statusChange(this.id, this.status);
     changeCheckbox(this.id, this.status);
-    clearTimeout(super.timeoutId);
-    if (Router.getCurrentPath().slice(2) != 'all') {
-      super.timeoutId = setTimeout(function() {
-        getNotes(Router.getCurrentPath().slice(2));
-      }, 1000);
+    if (Router.getPathParam() != 'all') {
+      this.timeoutId = setTimeout(() => {
+        console.log(this);
+        this.node = deleteNoteNode(this.id);
+      }, 700);
     }
   }
   undo() {
     statusChange(this.id, !this.status);
-    clearTimeout(super.timeoutId);
-    if (Router.getCurrentPath().slice(2) == 'all') {
+    if (Router.getPathParam() != 'all') {
+      clearTimeout(this.timeoutId);
+      restoreNoteNode(this.node);
       changeCheckbox(this.id, !this.status);
-    } else {
-      setTimeout(function() {
-        getNotes(Router.getCurrentPath().slice(2));
-      }, 100)
     }
   }
 }
