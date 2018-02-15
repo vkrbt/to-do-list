@@ -47,15 +47,8 @@ gulp.task('scss', function() {
 });
 
 gulp.task('js', function() {
-  gulp.src(src.js)
-    .pipe(concat('index.js'))
-    .pipe(minify({
-      ext: {
-        src: '-debug.js',
-        min: '.js'
-      }
-    }))
-    .pipe(gulp.dest(dist.js));
+  gulp.src(src.js).
+    pipe(gulp.dest(dist.js));
   src.lib.forEach(function(item) {
     gulp.src(item)
       .pipe(gulp.dest(dist.js))
@@ -79,7 +72,7 @@ gulp.task('watch', function() {
 gulp.task('webserver', function() {
   gulp.src(dist.html)
     .pipe(webserver({
-      host: '192.168.14.144',
+      host: 'localhost',
       port: 8000,
       livereload: true,
       directoryListing: false,
